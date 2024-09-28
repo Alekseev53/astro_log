@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram WebApp</title>
+    <style>
+        /* Стили для фона и всего веб-приложения */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Стили заголовка */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--tg-theme-hint-color, #333);
+            margin-bottom: 5px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Стили для текста */
+        p {
+            font-size: 1.2rem;
+            margin: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Стили для кнопок */
+        button {
+            background-color: var(--tg-theme-button-color);
+            color: var(--tg-theme-button-text-color);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0077b6;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Стили изображения */
+        #themeImage {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        #themeImage:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Анимация для заголовка и текста */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Контейнер для кнопок с максимальной шириной */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Привет,
+         <span id="userName">Гость</span>!</h1>
+    <p>Твой уникальный ID: <span id="userID">Неизвестен</span></p>
+
+    <img id="themeImage" src="images/dark-theme-image.jpg" alt="Theme Image">
+
+    <div class="button-container">
+        <button id="toggleButton">Показать/скрыть основную кнопку</button>
+        <button id="sendMessageButton">Отправить сообщение боту</button>
+    </div>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        // Инициализация объекта Telegram Web App
+        let tg = window.Telegram.WebApp;
+
+        // Получение информации о пользователе
+        let user = tg.initDataUnsafe?.user || { first_name: 'Гость', id: 'Неизвестен' };
+        
+        // Изменение информации на странице
+        document.getElementById("userName").textContent = user.first_name;
+        document.getElementById("userID").textContent = user.id;
+
+        // Работа с основными кнопками
+        let mainButton = tg.MainButton;
+        let themeImage = document.getElementById("themeImage");
+
+        // Настройка основной кнопки
+        mainButton.text = "Подтвердить!";
+        mainButton.setParams({
+            color: tg.ThemeParams.button_color || "#0088cc",
+            text_color: tg.ThemeParams.button_text_color || "#ffffff"
+        });
+
+        // Переключение показа основной кнопки
+        document.getElementById("toggleButton").addEventListener("click", function () {
+            if (mainButton.isVisible) {
+                mainButton.hide();
+            } else {
+                mainButton.show();
+            }
+        });
+
+        // Отправка сообщения боту
+        document.getElementById("sendMessageButton").addEventListener("click", function () {
+            tg.sendData("Привет от веб-приложения!");
+        });
+
+        // Функция обновления темы и изображения в зависимости от системной темы
+       
+
+        // Событие смены темы
+        tg.onEvent("themeChanged", updateTheme);
+        updateTheme();  // Инициируем изменение темы при открытии
+
+        // Показываем основную кнопку, если она не видна
+        if (!mainButton.isVisible) {
+            mainButton.show();
+        }
+
+        tg.ready();  // Сообщаем Telegram, что приложение готово
+    </script>
+</body>
+</html>
