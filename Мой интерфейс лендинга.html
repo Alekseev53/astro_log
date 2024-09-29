@@ -20,25 +20,6 @@
             padding: 20px;
         }
 
-        .title-block {
-            font-size: 4em;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px #000000;
-        }
-
-        .telegram-icon {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .telegram-icon img {
-            width: 30px;
-            height: 30px;
-        }
-
         .intro {
             position: relative;
             width: 100vw;
@@ -56,30 +37,38 @@
             left: 0;
         }
 
-        .intro .content {
+        .intro .title-block {
             position: absolute;
-            top: 50%;
+            top: 10px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
+            transform: translateX(-50%);
+            font-size: 4em;
+            font-weight: bold;
             color: white;
             text-shadow: 2px 2px 4px #000000;
         }
 
-        .intro .content .centered {
-            font-size: 2.5em;
-            margin-bottom: 10px; /* Добавлено пространство между текстом и кнопкой */
+        .intro .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px #000000;
         }
 
-        .intro .content .btn {
+        .intro .btn {
             background-color: #ffffff;
             color: #000;
             padding: 15px 30px;
+            text-decoration: none;
             border-radius: 30px;
             font-size: 1.2em;
-            text-decoration: none; /* Убрана подчеркивание текста */
-            display: inline-block; /* Установлен display inline-block чтобы убрать дополнительные стили текста */
-            text-shadow: none; /* Убран эффект тени текста */
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .products {
@@ -97,8 +86,6 @@
             max-width: 300px;
             text-align: center;
             transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
         }
 
         .product img {
@@ -115,7 +102,6 @@
             padding: 0 10px;
             font-size: 1em;
             color: #555;
-            flex-grow: 1;
         }
 
         .product .price {
@@ -125,6 +111,7 @@
         }
 
         .product .btn {
+            display: block;
             background-color: #000;
             color: #fff;
             padding: 10px;
@@ -142,22 +129,17 @@
                 max-width: 90%;
             }
 
-            .intro .content .centered {
-                font-size: 2em;
+            .intro .title-block {
+                font-size: 3em;
             }
 
-            .intro .content .btn {
+            .intro .centered {
+                font-size: 1.5em;
+            }
+
+            .intro .btn {
                 font-size: 1em;
                 padding: 10px 20px;
-            }
-
-            .telegram-icon {
-                right: 10px;
-            }
-
-            .telegram-icon img {
-                width: 25px;
-                height: 25px;
             }
         }
     </style>
@@ -166,11 +148,10 @@
 <body>
     <div class="container">
         <div class="intro">
+            <div class="title-block">AstroLog 🔮</div>
             <img src="https://static.tildacdn.info/tild3731-6637-4939-b739-313562376663/2024-09-28_173424.jpg" alt="AstroLog">
-            <div class="content">
-                <div class="centered">Войди в Мир предсказаний от AstroLog</div>
-                <a href="https://t.me/astro_log_ru_bot" class="btn">Узнать будущее</a>
-            </div>
+            <div class="centered">Войди в Мир предсказаний от AstroLog</div>
+            <a href="https://t.me/astro_log_ru_bot" class="btn">Узнать будущее</a>
         </div>
 
         <div class="products">
